@@ -62,26 +62,23 @@ class BlogsController < ApplicationController
   end
 
   def import
-    file = params[:attachment]
-    data = CSV.parse(file.to_io, headers: true, encoding: 'utf8')
-    # Start code to handle CSV data
-    ActiveRecord::Base.transaction do
-      data.each do |row|
-        current_user.blogs.create!(row.to_h)
-      end
+    if params[:attachment].present?
+      ImportBlogsJob.perform_later(params[:attachment].read, current_user.id)
+
+      redirect_to blogs_path, notice: 'File uploaded successfully. Processing in the background.'
+    else
+      redirect_to blogs_path, alert: 'No file uploaded.'
     end
-    # End code to handle CSV data
-    redirect_to blogs_path
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_blog
-      @blog = current_user.blogs.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_blog
+    @blog = current_user.blogs.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def blog_params
-      params.require(:blog).permit(:title, :body, :user_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def blog_params
+    params.require(:blog).permit(:title, :body, :user_id)
+  end
 end
