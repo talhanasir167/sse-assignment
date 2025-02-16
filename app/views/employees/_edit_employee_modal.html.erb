@@ -1,18 +1,18 @@
-<!-- Modal -->
-<div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="editEmployeeLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editEmployeeLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
+<%= render 'layouts/modal', modal_id: 'editEmployee', title: 'Edit Employee', form_action: employee_path(@employee) do %>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <%= text_field_tag :name, @employee.dig("name"), class: 'form-control' %>
   </div>
-</div>
+  <div class="mb-3">
+    <label for="position" class="form-label">Position</label>
+    <%= text_field_tag :position, @employee.dig("position"), class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <label for="salary" class="form-label">Salary</label>
+    <%= number_field_tag :salary, @employee.dig("salary"), class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <label for="date_of_birth" class="form-label">Date of Birth</label>
+    <%= date_field_tag :date_of_birth, @employee.dig("date_of_birth"), class: 'form-control' %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+<% if @employees.dig("meta", "total_pages") > 1 %>
+  <div class="pagination">
+    <%= link_to 'First Page', employees_path(page: 1) if @employees.dig("meta", "current_page") > 1 %> |
+    <%= link_to 'Previouse', employees_path(page: @employees.dig("meta","prev_page")) if @employees.dig("meta", "prev_page").present? %> |
+    <%= link_to 'Next', employees_path(page: @employees.dig("meta","next_page")) if @employees.dig("meta", "next_page").present? %> |
+    <%= link_to 'Last Page', employees_path(page: @employees.dig("meta","total_pages")) if @employees.dig("meta", "current_page") < @employees.dig("meta", "total_pages") %>
+  </div>
+<% end %> 

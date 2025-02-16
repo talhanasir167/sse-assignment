@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= root_path %>"><img width="136" src="https://staunch.co/images/logo.svg"></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if user_signed_in? %>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="<%= new_blog_path %>">New Blog</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#BlogImportModal" aria-current="page" href="#">Import Blogs </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="<%= employees_path %>">Employees</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="<%= new_employee_path %>">New Employee</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%= current_user.email %>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <%= link_to "Edit Profile", edit_user_registration_path, class: 'dropdown-item' %>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: 'dropdown-item' %></li>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
